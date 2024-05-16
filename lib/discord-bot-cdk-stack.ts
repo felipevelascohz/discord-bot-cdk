@@ -11,6 +11,6 @@ export class DiscordBotCdkStack extends cdk.Stack {
     // example resource
     // const queue = new sqs.Queue(this, 'DiscordBotCdkQueue', {
     //   visibilityTimeout: cdk.Duration.seconds(300)
-    // });dgfnjgh,fgnfh,khmrfh,t
+    // });_______________________________
   }
 }
