@@ -30,21 +30,24 @@ export class DiscordBotCdkStack extends cdk.Stack {
     
     const taskDefinition = new aws_ecs.Ec2TaskDefinition ( this, 'TaskDef');
     taskDefinition.addContainer('TheContainer', {
-      image: aws_ecs.ContainerImage.fromRegistry('example-image'),
+      image: aws_ecs.ContainerImage.fromRegistry('zuluaga1996/botdc:latest'),
       memoryLimitMiB: 256,
       
     })
-    taskDefinition.addContainer("WebContainer", {
-      image: aws_ecs.ContainerImage.fromRegistry("amazon/amazon-ecs-sample"),
-    });
+    /*taskDefinition.addContainer("WebContainer", {
+      image: aws_ecs.ContainerImage.fromRegistry("zuluaga1996/botdc:tagname"),
+    }); */
 
     Tags.of(taskDefinition).add('my-tag', 'my-tag-value')
 
-    const scheduleFargateTask =new aws_ecs_patterns.ScheduledFargateTask (this, 'ScheduledFargateTask', {
+    const scheduleFargateTask =new aws_ecs.Ec2Service (this, 'Ec2Service', {
       cluster,
       taskDefinition: taskDefinition,
-      schedule: cdk.aws_applicationautoscaling.Schedule.expression('rate ( 1 minute)'),
+      /* schedule: cdk.aws_applicationautoscaling.Schedule.expression('rate ( 1 minute)'), */
       propagateTags: aws_ecs.PropagatedTagSource.TASK_DEFINITION,
+
+      public addAsgCapacityProvider(provider: AsgCapacityProvider, options?: AddAutoScalingGroupCapacityOptions): void
+
     });
   }
 }
